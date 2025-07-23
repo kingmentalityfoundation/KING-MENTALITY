@@ -2,7 +2,6 @@
    KING MENTALITY - SHARED VARIABLES
    Colors, Fonts, and Global Design Tokens
    ============================================ */
-
 :root {
     /* ===== KINGDOM COLOR PALETTE ===== */
     
@@ -31,12 +30,12 @@
     --pure-white: #FFFFFF;
     --off-white: #F5F5F5;
     
-    /* ===== WARRIOR TYPOGRAPHY ===== */
+    /* ===== WARRIOR TYPOGRAPHY (UPDATED) ===== */
     
     /* Primary Fonts (Google Fonts) */
-    --font-royal: 'Cinzel', serif;          /* Headers, royal text */
-    --font-warrior: 'Oswald', sans-serif;   /* Body, navigation */
-    --font-caps: 'Marcellus SC', serif;     /* Subtitles, small caps */
+    --font-royal: 'Cinzel', serif;              /* Headers, royal headlines */
+    --font-warrior: 'Montserrat', sans-serif;   /* Body text, navigation */
+    --font-caps: 'Marcellus SC', serif;         /* Subtitles, small caps */
     
     /* Font Weights */
     --weight-light: 300;
@@ -104,5 +103,5 @@
     --overlay-red: rgba(139, 0, 0, 0.3);
 }
 
-/* ===== FONT IMPORTS ===== */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Oswald:wght@300;400;600;700&family=Marcellus+SC&display=swap');
+/* ===== FONT IMPORTS (UPDATED) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Marcellus+SC&display=swap');
