@@ -1,6 +1,6 @@
 /* ============================================
-   KING MENTALITY - HERO SECTION STYLES (OPTION A)
-   Royal Kingdom Aesthetic with Mobile-First Design
+   KING MENTALITY - HERO SECTION STYLES (OPTION B)
+   Royal Kingdom Aesthetic with 3D Headlines
    ============================================ */
 
 /* ===== GLOBAL RESET FOR HERO SECTION ===== */
@@ -202,7 +202,7 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: var(--space-xxl) var(--space-md) var(--space-lg);
+    padding: calc(80px + var(--space-lg)) var(--space-md) var(--space-lg);
     position: relative;
     overflow: hidden;
 }
@@ -262,30 +262,44 @@ body {
     position: relative;
 }
 
-/* Hero Title */
+/* Hero Title - EPIC 3D EFFECT */
 .hero-title {
     font-family: var(--font-royal);
     font-weight: var(--weight-bold);
     color: var(--glowing-gold);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 
+        /* 3D depth layers */
+        2px 2px 0px var(--dark-gold),
+        4px 4px 0px rgba(184, 134, 11, 0.8),
+        6px 6px 0px rgba(184, 134, 11, 0.6),
+        8px 8px 0px rgba(184, 134, 11, 0.4),
+        10px 10px 0px rgba(184, 134, 11, 0.2),
+        /* Glow effects */
+        0 0 10px rgba(255, 215, 0, 0.8),
+        0 0 20px rgba(255, 215, 0, 0.6),
+        0 0 40px rgba(255, 215, 0, 0.4),
+        0 0 80px rgba(255, 215, 0, 0.2),
+        /* Shadow for depth */
+        12px 12px 25px rgba(0, 0, 0, 0.8);
     margin-bottom: var(--space-md);
     line-height: 1.1;
+    transform-style: preserve-3d;
 }
 
 .title-line-1,
 .title-line-2 {
     display: block;
-    animation: slideInLeft 1s ease-out forwards;
+    animation: slideIn3D 1.2s ease-out forwards;
 }
 
 .title-line-1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
     animation-delay: 0.3s;
     opacity: 0;
 }
 
 .title-line-2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     animation-delay: 0.6s;
     opacity: 0;
     margin-top: var(--space-xs);
@@ -301,7 +315,7 @@ body {
     margin-bottom: var(--space-xl);
     border-left: 3px solid var(--deep-red);
     padding-left: var(--space-md);
-    animation: fadeInUp 1s ease-out 0.9s forwards;
+    animation: fadeInUp 1s ease-out 1.2s forwards;
     opacity: 0;
 }
 
@@ -318,7 +332,7 @@ body {
 /* Mission Section */
 .mission-section {
     margin-bottom: var(--space-lg);
-    animation: fadeInUp 1s ease-out 1.2s forwards;
+    animation: fadeInUp 1s ease-out 1.5s forwards;
     opacity: 0;
 }
 
@@ -340,7 +354,7 @@ body {
 /* Vision Section */
 .vision-section {
     margin-bottom: var(--space-xl);
-    animation: fadeInUp 1s ease-out 1.5s forwards;
+    animation: fadeInUp 1s ease-out 1.8s forwards;
     opacity: 0;
 }
 
@@ -361,7 +375,7 @@ body {
     gap: var(--space-lg);
     align-items: center;
     margin-bottom: var(--space-xl);
-    animation: fadeInUp 1s ease-out 1.8s forwards;
+    animation: fadeInUp 1s ease-out 2.1s forwards;
     opacity: 0;
 }
 
@@ -446,7 +460,7 @@ body {
 /* Inspiration Section */
 .inspiration-section {
     margin-bottom: var(--space-xl);
-    animation: fadeInUp 1s ease-out 2.1s forwards;
+    animation: fadeInUp 1s ease-out 2.4s forwards;
     opacity: 0;
 }
 
@@ -473,7 +487,7 @@ body {
     border-radius: var(--radius-lg);
     padding: var(--space-lg);
     margin-bottom: var(--space-lg);
-    animation: fadeInUp 1s ease-out 2.4s forwards;
+    animation: fadeInUp 1s ease-out 2.7s forwards;
     opacity: 0;
 }
 
@@ -539,7 +553,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    animation: fadeInUp 1s ease-out 2.7s forwards;
+    animation: fadeInUp 1s ease-out 3s forwards;
     opacity: 0;
 }
 
@@ -610,6 +624,25 @@ body {
     .mobile-toggle {
         display: flex;
     }
+    
+    .title-line-1 {
+        font-size: 1.8rem;
+    }
+    
+    .title-line-2 {
+        font-size: 2rem;
+    }
+    
+    .hero-title {
+        /* Simplified 3D effect for mobile */
+        text-shadow: 
+            1px 1px 0px var(--dark-gold),
+            2px 2px 0px rgba(184, 134, 11, 0.8),
+            3px 3px 0px rgba(184, 134, 11, 0.6),
+            0 0 10px rgba(255, 215, 0, 0.8),
+            0 0 20px rgba(255, 215, 0, 0.4),
+            4px 4px 15px rgba(0, 0, 0, 0.8);
+    }
 }
 
 /* Tablet Styles */
@@ -628,11 +661,11 @@ body {
     }
     
     .title-line-1 {
-        font-size: 2.8rem;
+        font-size: 2.4rem;
     }
     
     .title-line-2 {
-        font-size: 3.2rem;
+        font-size: 2.8rem;
     }
     
     .troy-quote {
@@ -661,11 +694,11 @@ body {
 /* Desktop Styles */
 @media (min-width: 1024px) {
     .title-line-1 {
-        font-size: 3.2rem;
+        font-size: 2.8rem;
     }
     
     .title-line-2 {
-        font-size: 3.6rem;
+        font-size: 3.2rem;
     }
     
     .troy-quote {
@@ -702,11 +735,11 @@ body {
 /* Large Desktop Styles */
 @media (min-width: 1200px) {
     .title-line-1 {
-        font-size: 3.6rem;
+        font-size: 3.2rem;
     }
     
     .title-line-2 {
-        font-size: 4rem;
+        font-size: 3.6rem;
     }
     
     .troy-quote {
@@ -732,14 +765,28 @@ body {
     }
 }
 
-@keyframes slideInLeft {
+@keyframes slideIn3D {
     from {
         opacity: 0;
-        transform: translateX(-50px);
+        transform: translateX(-50px) rotateY(-15deg);
+        text-shadow: 
+            1px 1px 0px var(--dark-gold),
+            0 0 5px rgba(255, 215, 0, 0.4);
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) rotateY(0deg);
+        text-shadow: 
+            2px 2px 0px var(--dark-gold),
+            4px 4px 0px rgba(184, 134, 11, 0.8),
+            6px 6px 0px rgba(184, 134, 11, 0.6),
+            8px 8px 0px rgba(184, 134, 11, 0.4),
+            10px 10px 0px rgba(184, 134, 11, 0.2),
+            0 0 10px rgba(255, 215, 0, 0.8),
+            0 0 20px rgba(255, 215, 0, 0.6),
+            0 0 40px rgba(255, 215, 0, 0.4),
+            0 0 80px rgba(255, 215, 0, 0.2),
+            12px 12px 25px rgba(0, 0, 0, 0.8);
     }
 }
 
@@ -795,5 +842,13 @@ body {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+    
+    .hero-title {
+        /* Simplified effect for reduced motion */
+        text-shadow: 
+            2px 2px 0px var(--dark-gold),
+            0 0 10px rgba(255, 215, 0, 0.8),
+            4px 4px 15px rgba(0, 0, 0, 0.8);
     }
 }
