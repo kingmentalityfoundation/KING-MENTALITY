@@ -1,5 +1,5 @@
 /* ============================================
-   KING MENTALITY - HERO SECTION STYLES
+   KING MENTALITY - HERO SECTION STYLES (UPDATED)
    Royal Kingdom Aesthetic with Mobile-First Design
    ============================================ */
 
@@ -43,18 +43,41 @@ body {
 
 /* Logo Styling */
 .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all var(--transition-smooth);
+}
+
+.logo-image {
+    height: 40px;
+    width: auto;
+    filter: drop-shadow(var(--glow-gold));
+    transition: all var(--transition-smooth);
+}
+
+.logo:hover .logo-image {
+    transform: scale(1.05);
+    filter: drop-shadow(var(--text-glow-gold));
+}
+
+/* Fallback if logo doesn't load */
+.logo::after {
+    content: "KING MENTALITY";
     font-family: var(--font-royal);
     font-size: 1.5rem;
     font-weight: var(--weight-bold);
     color: var(--glowing-gold);
-    text-decoration: none;
     text-shadow: var(--glow-gold);
-    transition: all var(--transition-smooth);
+    display: none;
 }
 
-.logo:hover {
-    transform: scale(1.05);
-    text-shadow: var(--text-glow-gold);
+.logo-image:not([src]), .logo-image[src=""] {
+    display: none;
+}
+
+.logo-image:not([src]) + .logo::after, .logo-image[src=""] + .logo::after {
+    display: block;
 }
 
 /* Desktop Navigation Menu */
@@ -166,7 +189,7 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: var(--space-xxl) var(--space-md);
+    padding: var(--space-xl) var(--space-md) var(--space-lg);
     position: relative;
     overflow: hidden;
 }
@@ -243,27 +266,40 @@ body {
 }
 
 .title-line-1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
     animation-delay: 0.3s;
     opacity: 0;
 }
 
 .title-line-2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     animation-delay: 0.6s;
     opacity: 0;
+    margin-top: var(--space-xs);
 }
 
-/* Hero Subtitle */
-.hero-subtitle {
+/* Troy Quote */
+.troy-quote {
     font-family: var(--font-caps);
     font-size: 1rem;
     color: var(--light-gray);
-    text-transform: uppercase;
-    letter-spacing: 3px;
+    font-style: italic;
+    letter-spacing: 2px;
     margin-bottom: var(--space-xl);
+    border-left: 3px solid var(--deep-red);
+    padding-left: var(--space-md);
     animation: fadeInUp 1s ease-out 0.9s forwards;
     opacity: 0;
+}
+
+/* Section Labels */
+.section-label {
+    font-family: var(--font-royal);
+    font-size: 1.1rem;
+    color: var(--bright-gold);
+    margin-bottom: var(--space-sm);
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 /* Mission Section */
@@ -273,20 +309,19 @@ body {
     opacity: 0;
 }
 
-.mission-label {
-    font-family: var(--font-royal);
-    font-size: 1.2rem;
-    color: var(--bright-gold);
-    margin-bottom: var(--space-sm);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
 .mission-text {
     font-size: 1rem;
     line-height: 1.7;
     color: var(--pure-white);
     font-weight: var(--weight-normal);
+    margin-bottom: var(--space-sm);
+}
+
+.mission-subtitle {
+    font-size: 1rem;
+    color: var(--light-gray);
+    font-style: italic;
+    font-weight: var(--weight-light);
 }
 
 /* Vision Section */
@@ -294,15 +329,6 @@ body {
     margin-bottom: var(--space-xl);
     animation: fadeInUp 1s ease-out 1.5s forwards;
     opacity: 0;
-}
-
-.vision-label {
-    font-family: var(--font-royal);
-    font-size: 1.2rem;
-    color: var(--bright-gold);
-    margin-bottom: var(--space-sm);
-    text-transform: uppercase;
-    letter-spacing: 2px;
 }
 
 .vision-text {
@@ -319,11 +345,22 @@ body {
 .cta-section {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-lg);
     align-items: center;
     margin-bottom: var(--space-xl);
     animation: fadeInUp 1s ease-out 1.8s forwards;
     opacity: 0;
+}
+
+.cta-item {
+    text-align: center;
+}
+
+.cta-description {
+    font-size: 0.9rem;
+    color: var(--light-gray);
+    margin-top: var(--space-sm);
+    font-style: italic;
 }
 
 /* Primary Button */
@@ -393,36 +430,92 @@ body {
     font-size: 1.2rem;
 }
 
-/* Hero Stats */
-.hero-stats {
-    display: flex;
-    justify-content: center;
-    gap: var(--space-lg);
-    margin-bottom: var(--space-lg);
+/* Inspiration Section */
+.inspiration-section {
+    margin-bottom: var(--space-xl);
     animation: fadeInUp 1s ease-out 2.1s forwards;
     opacity: 0;
 }
 
-.stat-item {
+.buddha-quote {
+    font-family: var(--font-caps);
+    font-size: 1.1rem;
+    color: var(--pure-white);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
     text-align: center;
 }
 
-.stat-number {
-    display: block;
-    font-family: var(--font-royal);
-    font-size: 1.5rem;
-    font-weight: var(--weight-bold);
-    color: var(--glowing-gold);
-    text-shadow: var(--glow-gold);
+.quote-author {
+    font-size: 0.9rem;
+    color: var(--bright-gold);
+    font-weight: var(--weight-semibold);
 }
 
-.stat-label {
+/* Crisis Stats Section */
+.crisis-stats {
+    background: linear-gradient(135deg, var(--royal-gray) 0%, var(--charcoal) 100%);
+    border: 2px solid var(--deep-red);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    animation: fadeInUp 1s ease-out 2.4s forwards;
+    opacity: 0;
+}
+
+.crisis-title {
+    font-family: var(--font-royal);
+    font-size: 1.3rem;
+    color: var(--blood-red);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: var(--glow-red);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.stat-item.urgent {
+    text-align: center;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    background: rgba(139, 0, 0, 0.2);
+    border: 1px solid var(--deep-red);
+}
+
+.stat-item.urgent .stat-number {
     display: block;
-    font-size: 0.8rem;
-    color: var(--light-gray);
+    font-family: var(--font-royal);
+    font-size: 2rem;
+    font-weight: var(--weight-bold);
+    color: var(--blood-red);
+    text-shadow: var(--glow-red);
+    margin-bottom: var(--space-sm);
+}
+
+.stat-item.urgent .stat-label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--pure-white);
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-top: var(--space-xs);
+    line-height: 1.4;
+}
+
+.crisis-call {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--glowing-gold);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 /* Scroll Indicator */
@@ -432,7 +525,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    animation: fadeInUp 1s ease-out 2.4s forwards;
+    animation: fadeInUp 1s ease-out 2.7s forwards;
     opacity: 0;
 }
 
@@ -468,26 +561,31 @@ body {
 
 /* Mobile Styles (default) */
 @media (max-width: 767px) {
-    .hero-stats {
-        flex-direction: column;
+    .stats-grid {
+        grid-template-columns: 1fr;
         gap: var(--space-md);
     }
     
-    .stat-number {
-        font-size: 1.3rem;
+    .stat-item.urgent .stat-number {
+        font-size: 1.8rem;
     }
     
     .nav-content {
         padding: var(--space-sm);
     }
     
-    .logo {
-        font-size: 1.3rem;
+    .logo-image {
+        height: 35px;
     }
     
     .mission-text,
-    .vision-text {
+    .vision-text,
+    .buddha-quote {
         font-size: 0.95rem;
+    }
+    
+    .crisis-title {
+        font-size: 1.1rem;
     }
 }
 
@@ -507,15 +605,15 @@ body {
     }
     
     .title-line-1 {
-        font-size: 3rem;
+        font-size: 2.8rem;
     }
     
     .title-line-2 {
-        font-size: 3.5rem;
+        font-size: 3.2rem;
     }
     
-    .hero-subtitle {
-        font-size: 1.2rem;
+    .troy-quote {
+        font-size: 1.1rem;
     }
     
     .mission-text,
@@ -523,23 +621,31 @@ body {
         font-size: 1.1rem;
     }
     
-    .hero-stats {
-        flex-direction: row;
+    .buddha-quote {
+        font-size: 1.2rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .logo-image {
+        height: 45px;
     }
 }
 
 /* Desktop Styles */
 @media (min-width: 1024px) {
     .title-line-1 {
-        font-size: 3.5rem;
+        font-size: 3.2rem;
     }
     
     .title-line-2 {
-        font-size: 4rem;
+        font-size: 3.6rem;
     }
     
-    .hero-subtitle {
-        font-size: 1.4rem;
+    .troy-quote {
+        font-size: 1.2rem;
     }
     
     .mission-text,
@@ -547,31 +653,43 @@ body {
         font-size: 1.2rem;
     }
     
-    .logo {
-        font-size: 1.8rem;
+    .buddha-quote {
+        font-size: 1.3rem;
     }
     
-    .stat-number {
-        font-size: 1.8rem;
+    .logo-image {
+        height: 50px;
+    }
+    
+    .stat-item.urgent .stat-number {
+        font-size: 2.2rem;
     }
     
     .nav-menu a {
         font-size: 1rem;
+    }
+    
+    .crisis-title {
+        font-size: 1.4rem;
     }
 }
 
 /* Large Desktop Styles */
 @media (min-width: 1200px) {
     .title-line-1 {
-        font-size: 4rem;
+        font-size: 3.6rem;
     }
     
     .title-line-2 {
-        font-size: 4.5rem;
+        font-size: 4rem;
     }
     
-    .hero-subtitle {
-        font-size: 1.6rem;
+    .troy-quote {
+        font-size: 1.3rem;
+    }
+    
+    .logo-image {
+        height: 55px;
     }
 }
 
