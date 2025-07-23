@@ -1,5 +1,5 @@
 /* ============================================
-   KING MENTALITY - HERO SECTION JAVASCRIPT
+   KING MENTALITY - HERO SECTION JAVASCRIPT (UPDATED)
    Interactive Functionality & User Experience
    ============================================ */
 
@@ -13,10 +13,12 @@ function initializeHeroSection() {
     setupMobileMenu();
     setupSmoothScrolling();
     setupNavigationEffects();
-    setupStatCounters();
+    setupLogoFallback();
     setupKeyboardNavigation();
     setupScrollIndicator();
     setupButtonEffects();
+    setupCrisisStatsAnimation();
+    setupQuoteAnimations();
 }
 
 /* ===== MOBILE MENU FUNCTIONALITY ===== */
@@ -24,7 +26,6 @@ function initializeHeroSection() {
 function setupMobileMenu() {
     const mobileToggle = document.getElementById('mobile-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
-    const navMenu = document.getElementById('nav-menu');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-list a');
     
     if (!mobileToggle || !mobileMenu) return;
@@ -169,67 +170,37 @@ function setupNavigationEffects() {
     }
 }
 
-/* ===== ANIMATED STAT COUNTERS ===== */
+/* ===== LOGO FALLBACK FUNCTIONALITY ===== */
 
-function setupStatCounters() {
-    const statNumbers = document.querySelectorAll('.stat-number');
-    let hasAnimated = false;
+function setupLogoFallback() {
+    const logoImage = document.querySelector('.logo-image');
+    const logoLink = document.querySelector('.logo');
     
-    // Create intersection observer for counter animation
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !hasAnimated) {
-                animateCounters();
-                hasAnimated = true;
-            }
-        });
-    }, {
-        threshold: 0.5
-    });
+    if (!logoImage || !logoLink) return;
     
-    // Observe the stats section
-    const statsSection = document.querySelector('.hero-stats');
-    if (statsSection) {
-        observer.observe(statsSection);
-    }
-}
-
-function animateCounters() {
-    const counters = [
-        { element: document.getElementById('kings-count'), target: 1247, suffix: '' },
-        { element: document.getElementById('tools-count'), target: 15, suffix: '+' },
-        { element: document.getElementById('brotherhood-count'), target: 24, suffix: '/7' }
-    ];
-    
-    counters.forEach(counter => {
-        if (!counter.element) return;
+    // Check if logo loads successfully
+    logoImage.addEventListener('error', function() {
+        // Hide the broken image
+        this.style.display = 'none';
         
-        if (counter.element.id === 'brotherhood-count') {
-            // Special handling for 24/7
-            animateSpecialCounter(counter.element, '24/7');
-        } else {
-            animateCounter(counter.element, 0, counter.target, counter.suffix, 2000);
+        // Show text fallback
+        logoLink.innerHTML = '<span class="logo-text">KING MENTALITY</span>';
+        
+        // Apply text styling
+        const logoText = logoLink.querySelector('.logo-text');
+        if (logoText) {
+            logoText.style.fontFamily = 'var(--font-royal)';
+            logoText.style.fontSize = '1.5rem';
+            logoText.style.fontWeight = 'var(--weight-bold)';
+            logoText.style.color = 'var(--glowing-gold)';
+            logoText.style.textShadow = 'var(--glow-gold)';
         }
     });
-}
-
-function animateCounter(element, start, end, suffix, duration) {
-    const range = end - start;
-    const increment = range / (duration / 16); // 60fps
-    let current = start;
     
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= end) {
-            current = end;
-            clearInterval(timer);
-        }
-        element.textContent = Math.floor(current).toLocaleString() + suffix;
-    }, 16);
-}
-
-function animateSpecialCounter(element, finalText) {
-    element.textContent = finalText;
+    // Add loading state
+    logoImage.addEventListener('load', function() {
+        this.style.opacity = '1';
+    });
 }
 
 /* ===== KEYBOARD NAVIGATION ===== */
@@ -316,6 +287,18 @@ function setupButtonEffects() {
         button.addEventListener('mouseenter', function() {
             this.style.transition = 'all 0.3s ease';
         });
+        
+        // Add pulse effect for primary button
+        if (button.classList.contains('btn-primary')) {
+            setInterval(() => {
+                if (!button.matches(':hover')) {
+                    button.style.animation = 'pulse-gold 2s ease-in-out';
+                    setTimeout(() => {
+                        button.style.animation = 'none';
+                    }, 2000);
+                }
+            }, 8000);
+        }
     });
 }
 
@@ -344,6 +327,74 @@ function createRippleEffect(button, event) {
     setTimeout(() => {
         ripple.remove();
     }, 600);
+}
+
+/* ===== CRISIS STATS ANIMATION ===== */
+
+function setupCrisisStatsAnimation() {
+    const statsSection = document.querySelector('.crisis-stats');
+    const statNumbers = document.querySelectorAll('.stat-item.urgent .stat-number');
+    let hasAnimated = false;
+    
+    // Create intersection observer for stats animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAnimated) {
+                animateCrisisStats();
+                hasAnimated = true;
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
+    
+    // Observe the stats section
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+}
+
+function animateCrisisStats() {
+    const statItems = document.querySelectorAll('.stat-item.urgent');
+    
+    statItems.forEach((item, index) => {
+        setTimeout(() => {
+            // Add urgent flash effect
+            item.style.animation = 'urgentFlash 0.5s ease-in-out';
+            
+            // Add number glow effect
+            const number = item.querySelector('.stat-number');
+            if (number) {
+                number.style.animation = 'redGlow 1s ease-in-out';
+            }
+        }, index * 200);
+    });
+}
+
+/* ===== QUOTE ANIMATIONS ===== */
+
+function setupQuoteAnimations() {
+    const troyQuote = document.querySelector('.troy-quote');
+    const buddhaQuote = document.querySelector('.buddha-quote');
+    
+    // Add typing effect to Troy quote
+    if (troyQuote) {
+        setTimeout(() => {
+            troyQuote.style.animation = 'typewriter 2s steps(40) forwards';
+        }, 1500);
+    }
+    
+    // Add floating effect to Buddha quote
+    if (buddhaQuote) {
+        buddhaQuote.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.transition = 'transform 0.3s ease';
+        });
+        
+        buddhaQuote.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    }
 }
 
 /* ===== UTILITY FUNCTIONS ===== */
@@ -386,9 +437,23 @@ function isInViewport(element) {
     );
 }
 
+// Add visual feedback for crisis stats
+function addUrgentFeedback() {
+    const crisisSection = document.querySelector('.crisis-stats');
+    if (crisisSection) {
+        // Add pulsing border effect
+        setInterval(() => {
+            crisisSection.style.borderColor = 'var(--blood-red)';
+            setTimeout(() => {
+                crisisSection.style.borderColor = 'var(--deep-red)';
+            }, 1000);
+        }, 3000);
+    }
+}
+
 /* ===== CSS ANIMATIONS (added via JavaScript) ===== */
 
-// Add ripple animation keyframes
+// Add additional animation keyframes
 const style = document.createElement('style');
 style.textContent = `
     @keyframes ripple {
@@ -397,8 +462,74 @@ style.textContent = `
             opacity: 0;
         }
     }
+    
+    @keyframes urgentFlash {
+        0%, 100% { 
+            background: rgba(139, 0, 0, 0.2); 
+        }
+        50% { 
+            background: rgba(139, 0, 0, 0.4); 
+        }
+    }
+    
+    @keyframes redGlow {
+        0%, 100% { 
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.5); 
+        }
+        50% { 
+            text-shadow: 0 0 20px rgba(220, 20, 60, 0.8); 
+        }
+    }
+    
+    @keyframes pulse-gold {
+        0%, 100% { 
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); 
+        }
+        50% { 
+            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6); 
+        }
+    }
+    
+    @keyframes typewriter {
+        from { 
+            border-right: 2px solid var(--deep-red); 
+        }
+        to { 
+            border-right: 2px solid transparent; 
+        }
+    }
 `;
 document.head.appendChild(style);
+
+/* ===== ADVANCED INTERACTIONS ===== */
+
+// Add Easter egg - Konami code for special effect
+let konamiCode = [];
+const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+
+document.addEventListener('keydown', function(e) {
+    konamiCode.push(e.code);
+    if (konamiCode.length > konamiSequence.length) {
+        konamiCode.shift();
+    }
+    
+    if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
+        triggerKingMode();
+    }
+});
+
+function triggerKingMode() {
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) {
+        heroTitle.style.animation = 'kingPulse 2s ease-in-out';
+        heroTitle.style.textShadow = '0 0 30px var(--glowing-gold)';
+        
+        // Add crown emoji
+        setTimeout(() => {
+            heroTitle.innerHTML += ' 👑';
+        }, 1000);
+    }
+}
 
 /* ===== ERROR HANDLING ===== */
 
@@ -408,5 +539,10 @@ window.addEventListener('error', function(e) {
     // Fallback functionality can be added here
 });
 
+// Initialize urgent feedback
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(addUrgentFeedback, 3000);
+});
+
 // Console log for successful initialization
-console.log('🏰 King Mentality Hero Section Initialized Successfully');
+console.log('👑 King Mentality Hero Section Initialized Successfully - All Systems Ready for Kingdom Building!');
