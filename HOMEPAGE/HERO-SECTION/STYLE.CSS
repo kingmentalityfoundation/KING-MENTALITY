@@ -262,58 +262,61 @@ body {
     position: relative;
 }
 
-/* Hero Title - EPIC GLOW EFFECT */
+/* Hero Title - SYNCHRONIZED BOUNCING BUBBLE EFFECT */
 .hero-title {
     font-family: var(--font-royal);
     font-weight: var(--weight-bold);
-    color: var(--glowing-gold);
     
-    /* Epic Multi-Layer Glow Effect */
+    /* Bubble Effect on Font Only */
+    background: linear-gradient(
+        135deg,
+        rgba(255, 215, 0, 0.9) 0%,
+        rgba(255, 255, 255, 0.9) 20%,
+        rgba(255, 215, 0, 1) 40%,
+        rgba(255, 255, 255, 0.8) 60%,
+        rgba(255, 215, 0, 0.9) 80%,
+        rgba(255, 215, 0, 0.7) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    /* Reduced Glow Effect */
     text-shadow: 
-        /* Inner bright core */
-        0 0 5px rgba(255, 215, 0, 1),
-        0 0 10px rgba(255, 215, 0, 0.9),
-        0 0 15px rgba(255, 215, 0, 0.8),
-        0 0 20px rgba(255, 215, 0, 0.7),
-        /* Medium glow layers */
-        0 0 25px rgba(255, 215, 0, 0.6),
-        0 0 30px rgba(255, 215, 0, 0.5),
-        0 0 35px rgba(255, 215, 0, 0.4),
-        /* Outer dramatic glow */
-        0 0 40px rgba(255, 215, 0, 0.3),
-        0 0 50px rgba(255, 215, 0, 0.2),
-        0 0 60px rgba(255, 215, 0, 0.1),
-        /* Deep shadow for depth */
-        2px 2px 4px rgba(0, 0, 0, 0.8),
-        4px 4px 8px rgba(0, 0, 0, 0.6);
+        0 0 5px rgba(255, 215, 0, 0.5),
+        0 0 10px rgba(255, 215, 0, 0.3),
+        0 0 15px rgba(255, 215, 0, 0.1),
+        2px 2px 4px rgba(0, 0, 0, 0.4);
     
-    /* Additional glow filter */
+    /* Bubble highlights and reflections */
     filter: 
-        drop-shadow(0 0 20px rgba(255, 215, 0, 0.6))
-        drop-shadow(0 0 40px rgba(255, 215, 0, 0.3));
+        drop-shadow(0 0 8px rgba(255, 215, 0, 0.3))
+        drop-shadow(0 1px 2px rgba(255, 255, 255, 0.2))
+        drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
     
     margin-bottom: var(--space-md);
-    line-height: 1.1;
+    line-height: 1.2;
     position: relative;
 }
 
 .title-line-1,
 .title-line-2 {
     display: block;
-    animation: slideInGlow 1.2s ease-out forwards;
+    animation: slideInBubble 1.2s ease-out forwards, syncBounce 3s ease-in-out infinite 1.2s;
     position: relative;
     z-index: 2;
+    font-weight: var(--weight-bold);
 }
 
 .title-line-1 {
     font-size: 1.6rem;
-    animation-delay: 0.3s;
+    animation-delay: 0.3s, 1.5s;
     opacity: 0;
 }
 
 .title-line-2 {
     font-size: 1.8rem;
-    animation-delay: 0.6s;
+    animation-delay: 0.6s, 1.8s;
     opacity: 0;
     margin-top: var(--space-xs);
 }
@@ -641,25 +644,31 @@ body {
     }
     
     .title-line-1 {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
     }
     
     .title-line-2 {
-        font-size: 1.6rem;
+        font-size: 1.1rem;
     }
     
     .hero-title {
-        /* Simplified glow effect for mobile performance */
-        color: var(--glowing-gold);
+        /* Simplified bubble effect for mobile performance */
+        background: linear-gradient(
+            135deg,
+            rgba(255, 215, 0, 0.9) 0%,
+            rgba(255, 255, 255, 0.8) 50%,
+            rgba(255, 215, 0, 0.9) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        
         text-shadow: 
-            0 0 5px rgba(255, 215, 0, 1),
-            0 0 10px rgba(255, 215, 0, 0.8),
-            0 0 15px rgba(255, 215, 0, 0.6),
-            0 0 20px rgba(255, 215, 0, 0.4),
-            0 0 25px rgba(255, 215, 0, 0.2),
-            2px 2px 4px rgba(0, 0, 0, 0.8);
+            0 0 5px rgba(255, 215, 0, 0.5),
+            0 0 10px rgba(255, 215, 0, 0.3),
+            2px 2px 4px rgba(0, 0, 0, 0.4);
             
-        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
+        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
     }
 }
 
@@ -679,11 +688,11 @@ body {
     }
     
     .title-line-1 {
-        font-size: 2.0rem;
+        font-size: 1.8rem;
     }
     
     .title-line-2 {
-        font-size: 2.2rem;
+        font-size: 1.6rem;
     }
     
     .troy-quote {
@@ -783,34 +792,44 @@ body {
     }
 }
 
-@keyframes slideInGlow {
+@keyframes slideInBubble {
     from {
         opacity: 0;
         transform: translateX(-50px) rotateY(-15deg);
-        text-shadow: 
-            0 0 2px rgba(255, 215, 0, 0.3),
-            1px 1px 2px rgba(0, 0, 0, 0.5);
+        background: linear-gradient(
+            135deg,
+            rgba(255, 215, 0, 0.3) 0%,
+            rgba(255, 255, 255, 0.2) 50%,
+            rgba(255, 215, 0, 0.3) 100%
+        );
         filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.2));
     }
     to {
         opacity: 1;
         transform: translateX(0) rotateY(0deg);
-        text-shadow: 
-            0 0 5px rgba(255, 215, 0, 1),
-            0 0 10px rgba(255, 215, 0, 0.9),
-            0 0 15px rgba(255, 215, 0, 0.8),
-            0 0 20px rgba(255, 215, 0, 0.7),
-            0 0 25px rgba(255, 215, 0, 0.6),
-            0 0 30px rgba(255, 215, 0, 0.5),
-            0 0 35px rgba(255, 215, 0, 0.4),
-            0 0 40px rgba(255, 215, 0, 0.3),
-            0 0 50px rgba(255, 215, 0, 0.2),
-            0 0 60px rgba(255, 215, 0, 0.1),
-            2px 2px 4px rgba(0, 0, 0, 0.8),
-            4px 4px 8px rgba(0, 0, 0, 0.6);
+        background: linear-gradient(
+            135deg,
+            rgba(255, 215, 0, 0.9) 0%,
+            rgba(255, 255, 255, 0.9) 20%,
+            rgba(255, 215, 0, 1) 40%,
+            rgba(255, 255, 255, 0.8) 60%,
+            rgba(255, 215, 0, 0.9) 80%,
+            rgba(255, 215, 0, 0.7) 100%
+        );
         filter: 
-            drop-shadow(0 0 20px rgba(255, 215, 0, 0.6))
-            drop-shadow(0 0 40px rgba(255, 215, 0, 0.3));
+            drop-shadow(0 0 8px rgba(255, 215, 0, 0.3))
+            drop-shadow(0 1px 2px rgba(255, 255, 255, 0.2))
+            drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+    }
+}
+
+/* Synchronized Bounce Animation */
+@keyframes syncBounce {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
     }
 }
 
@@ -871,10 +890,18 @@ body {
     }
     
     .hero-title {
-        /* Simplified glow effect for reduced motion */
+        /* Simplified bubble effect for reduced motion */
+        background: linear-gradient(
+            135deg,
+            rgba(255, 215, 0, 0.9) 0%,
+            rgba(255, 255, 255, 0.8) 50%,
+            rgba(255, 215, 0, 0.9) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         text-shadow: 
-            0 0 10px rgba(255, 215, 0, 0.8),
-            0 0 20px rgba(255, 215, 0, 0.4),
-            2px 2px 4px rgba(0, 0, 0, 0.8);
+            0 0 5px rgba(255, 215, 0, 0.5),
+            2px 2px 4px rgba(0, 0, 0, 0.4);
     }
 }
