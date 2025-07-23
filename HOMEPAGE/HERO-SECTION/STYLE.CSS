@@ -1,5 +1,5 @@
 /* ============================================
-   KING MENTALITY - HERO SECTION STYLES (WORKING VERSION)
+   KING MENTALITY - HERO SECTION STYLES (OPTION A)
    Royal Kingdom Aesthetic with Mobile-First Design
    ============================================ */
 
@@ -41,27 +41,31 @@ body {
     padding: var(--space-sm) var(--space-md);
 }
 
-/* Logo Styling */
+/* Logo Styling - IMPROVED POSITIONING */
 .logo {
     display: flex;
     align-items: center;
     text-decoration: none;
     transition: all var(--transition-smooth);
+    flex-shrink: 0;
+    margin-right: var(--space-md);
 }
 
 .logo-image {
-    height: 40px;
+    height: 45px;
     width: auto;
-    filter: drop-shadow(var(--glow-gold));
+    max-width: 200px;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
     transition: all var(--transition-smooth);
+    object-fit: contain;
 }
 
 .logo:hover .logo-image {
     transform: scale(1.05);
-    filter: drop-shadow(var(--text-glow-gold));
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
 }
 
-/* Fallback if logo doesn't load */
+/* Enhanced fallback if logo doesn't load */
 .logo::after {
     content: "KING MENTALITY";
     font-family: var(--font-royal);
@@ -72,11 +76,15 @@ body {
     display: none;
 }
 
-.logo-image:not([src]), .logo-image[src=""] {
+.logo-image:not([src]), 
+.logo-image[src=""], 
+.logo-image[src*="placeholder"] {
     display: none;
 }
 
-.logo-image:not([src]) + .logo::after, .logo-image[src=""] + .logo::after {
+.logo-image:not([src]) ~ .logo::after, 
+.logo-image[src=""] ~ .logo::after,
+.logo-image[src*="placeholder"] ~ .logo::after {
     display: block;
 }
 
@@ -85,6 +93,9 @@ body {
     display: none;
     list-style: none;
     gap: var(--space-lg);
+    flex: 1;
+    justify-content: center;
+    margin-left: var(--space-lg);
 }
 
 .nav-menu a {
@@ -93,10 +104,11 @@ body {
     font-weight: var(--weight-normal);
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     transition: all var(--transition-smooth);
     position: relative;
     padding: var(--space-xs) 0;
+    white-space: nowrap;
 }
 
 .nav-menu a:hover {
@@ -131,6 +143,7 @@ body {
     padding: var(--space-xs);
     width: 40px;
     height: 40px;
+    flex-shrink: 0;
 }
 
 .hamburger-line {
@@ -516,6 +529,7 @@ body {
     font-weight: var(--weight-semibold);
     text-transform: uppercase;
     letter-spacing: 2px;
+    text-shadow: var(--glow-gold);
 }
 
 /* Scroll Indicator */
@@ -575,7 +589,8 @@ body {
     }
     
     .logo-image {
-        height: 35px;
+        height: 40px;
+        max-width: 150px;
     }
     
     .mission-text,
@@ -586,6 +601,14 @@ body {
     
     .crisis-title {
         font-size: 1.1rem;
+    }
+    
+    .nav-menu {
+        display: none;
+    }
+    
+    .mobile-toggle {
+        display: flex;
     }
 }
 
@@ -631,6 +654,7 @@ body {
     
     .logo-image {
         height: 45px;
+        max-width: 180px;
     }
 }
 
@@ -659,6 +683,7 @@ body {
     
     .logo-image {
         height: 50px;
+        max-width: 200px;
     }
     
     .stat-item.urgent .stat-number {
@@ -666,7 +691,7 @@ body {
     }
     
     .nav-menu a {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
     
     .crisis-title {
@@ -690,6 +715,7 @@ body {
     
     .logo-image {
         height: 55px;
+        max-width: 220px;
     }
 }
 
