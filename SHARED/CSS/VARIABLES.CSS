@@ -1,0 +1,108 @@
+/* ============================================
+   KING MENTALITY - SHARED VARIABLES
+   Colors, Fonts, and Global Design Tokens
+   ============================================ */
+
+:root {
+    /* ===== KINGDOM COLOR PALETTE ===== */
+    
+    /* Primary Blacks */
+    --rich-black: #0D0D0D;
+    --deep-black: #000000;
+    --royal-gray: #2C2C2C;
+    --charcoal: #1A1A1A;
+    
+    /* Glowing Golds */
+    --glowing-gold: #FFD700;
+    --bright-gold: #FFC107;
+    --dark-gold: #B8860B;
+    --gold-shadow: rgba(255, 215, 0, 0.5);
+    
+    /* Deep Reds */
+    --deep-red: #8B0000;
+    --blood-red: #DC143C;
+    --crimson: #B22222;
+    --red-shadow: rgba(139, 0, 0, 0.4);
+    
+    /* Neutral Tones */
+    --light-gray: #B8B8B8;
+    --medium-gray: #666666;
+    --dark-gray: #333333;
+    --pure-white: #FFFFFF;
+    --off-white: #F5F5F5;
+    
+    /* ===== WARRIOR TYPOGRAPHY ===== */
+    
+    /* Primary Fonts (Google Fonts) */
+    --font-royal: 'Cinzel', serif;          /* Headers, royal text */
+    --font-warrior: 'Oswald', sans-serif;   /* Body, navigation */
+    --font-caps: 'Marcellus SC', serif;     /* Subtitles, small caps */
+    
+    /* Font Weights */
+    --weight-light: 300;
+    --weight-normal: 400;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+    
+    /* ===== SPACING SYSTEM ===== */
+    
+    /* Standard spacing units */
+    --space-xs: 0.5rem;    /* 8px */
+    --space-sm: 1rem;      /* 16px */
+    --space-md: 1.5rem;    /* 24px */
+    --space-lg: 2rem;      /* 32px */
+    --space-xl: 3rem;      /* 48px */
+    --space-xxl: 4rem;     /* 64px */
+    
+    /* Container widths */
+    --container-sm: 600px;
+    --container-md: 800px;
+    --container-lg: 1200px;
+    --container-xl: 1400px;
+    
+    /* ===== EFFECTS & ANIMATIONS ===== */
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* Shadows */
+    --shadow-gold: 0 4px 15px var(--gold-shadow);
+    --shadow-red: 0 4px 15px var(--red-shadow);
+    --shadow-black: 0 4px 15px rgba(0, 0, 0, 0.5);
+    
+    /* Glows */
+    --glow-gold: 0 0 10px var(--gold-shadow);
+    --glow-red: 0 0 10px var(--red-shadow);
+    --text-glow-gold: 0 0 5px rgba(255, 215, 0, 0.7);
+    
+    /* Border radius */
+    --radius-sm: 3px;
+    --radius-md: 5px;
+    --radius-lg: 10px;
+    --radius-round: 50%;
+    
+    /* ===== RESPONSIVE BREAKPOINTS ===== */
+    
+    /* Mobile first approach */
+    --mobile: 320px;
+    --tablet: 768px;
+    --desktop: 1024px;
+    --large: 1200px;
+    
+    /* ===== GRADIENTS ===== */
+    
+    /* Background gradients */
+    --gradient-kingdom: linear-gradient(135deg, var(--deep-black) 0%, var(--rich-black) 50%, var(--royal-gray) 100%);
+    --gradient-gold: linear-gradient(135deg, var(--glowing-gold) 0%, var(--bright-gold) 100%);
+    --gradient-red: linear-gradient(135deg, var(--deep-red) 0%, var(--blood-red) 100%);
+    
+    /* Overlay gradients */
+    --overlay-dark: rgba(13, 13, 13, 0.8);
+    --overlay-gold: rgba(255, 215, 0, 0.1);
+    --overlay-red: rgba(139, 0, 0, 0.3);
+}
+
+/* ===== FONT IMPORTS ===== */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Oswald:wght@300;400;600;700&family=Marcellus+SC&display=swap');
