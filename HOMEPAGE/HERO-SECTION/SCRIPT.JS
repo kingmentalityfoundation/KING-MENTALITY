@@ -240,84 +240,36 @@ function handleTabNavigation(e) {
     }
 }
 
-/* ===== TAB NAVIGATION ===== */
+/* ===== SCROLL INDICATOR ===== */
 
-function setupTabNavigation() {
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
+function setupScrollIndicator() {
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (!scrollIndicator) return;
     
-    if (!tabButtons.length || !tabContents.length) return;
-    
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const targetTab = this.getAttribute('data-tab');
-            
-            // Remove active class from all buttons and contents
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Show corresponding content
-            const targetContent = document.getElementById(targetTab);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
-        });
+    scrollIndicator.addEventListener('click', function() {
+        // Scroll to next section (placeholder for when next section exists)
+        const nextSection = document.querySelector('#awakening') || document.querySelector('section:nth-of-type(2)');
+        if (nextSection) {
+            smoothScrollToElement(nextSection);
+        } else {
+            // If no next section, scroll down one viewport height
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
+        }
     });
     
-    // Handle keyboard navigation for tabs
-    tabButtons.forEach((button, index) => {
-        button.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-                e.preventDefault();
-                const direction = e.key === 'ArrowLeft' ? -1 : 1;
-                const nextIndex = (index + direction + tabButtons.length) % tabButtons.length;
-                tabButtons[nextIndex].click();
-                tabButtons[nextIndex].focus();
-            }
-        });
-    });
-}
-
-/* ===== CRISIS READ MORE FUNCTIONALITY ===== */
-
-function setupCrisisReadMore() {
-    const readMoreButtons = document.querySelectorAll('.read-more-btn');
-    
-    readMoreButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const crisisType = this.getAttribute('data-crisis');
-            const detailsElement = document.getElementById(`${crisisType}-details`);
-            
-            if (detailsElement) {
-                const isActive = detailsElement.classList.contains('active');
-                
-                if (isActive) {
-                    detailsElement.classList.remove('active');
-                    this.textContent = 'Read More';
-                    this.setAttribute('aria-expanded', 'false');
-                } else {
-                    // Close other open details first
-                    document.querySelectorAll('.crisis-details.active').forEach(detail => {
-                        detail.classList.remove('active');
-                    });
-                    document.querySelectorAll('.read-more-btn').forEach(btn => {
-                        btn.textContent = 'Read More';
-                        btn.setAttribute('aria-expanded', 'false');
-                    });
-                    
-                    // Open this one
-                    detailsElement.classList.add('active');
-                    this.textContent = 'Read Less';
-                    this.setAttribute('aria-expanded', 'true');
-                }
-            }
-        });
-        
-        // Add initial aria-expanded attribute
-        button.setAttribute('aria-expanded', 'false');
+    // Hide scroll indicator when user starts scrolling
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            scrollIndicator.style.opacity = '0';
+            scrollIndicator.style.pointerEvents = 'none';
+        } else {
+            scrollIndicator.style.opacity = '1';
+            scrollIndicator.style.pointerEvents = 'auto';
+        }
     });
 }
 
