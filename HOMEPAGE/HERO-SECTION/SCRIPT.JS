@@ -1,5 +1,5 @@
 /* ============================================
-   KING MENTALITY - HERO SECTION JAVASCRIPT (UPDATED)
+   KING MENTALITY - HERO SECTION JAVASCRIPT (WORKING VERSION)
    Interactive Functionality & User Experience
    ============================================ */
 
@@ -13,13 +13,10 @@ function initializeHeroSection() {
     setupMobileMenu();
     setupSmoothScrolling();
     setupNavigationEffects();
-    setupLogoFallback();
+    setupStatCounters();
     setupKeyboardNavigation();
+    setupScrollIndicator();
     setupButtonEffects();
-    setupCrisisStatsAnimation();
-    setupQuoteAnimations();
-    setupTabNavigation();
-    setupCrisisReadMore();
 }
 
 /* ===== MOBILE MENU FUNCTIONALITY ===== */
@@ -27,6 +24,7 @@ function initializeHeroSection() {
 function setupMobileMenu() {
     const mobileToggle = document.getElementById('mobile-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
+    const navMenu = document.getElementById('nav-menu');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-list a');
     
     if (!mobileToggle || !mobileMenu) return;
@@ -171,36 +169,50 @@ function setupNavigationEffects() {
     }
 }
 
-/* ===== LOGO FALLBACK FUNCTIONALITY ===== */
+/* ===== ANIMATED STAT COUNTERS ===== */
 
-function setupLogoFallback() {
-    const logoImage = document.querySelector('.logo-image');
-    const logoLink = document.querySelector('.logo');
+function setupStatCounters() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    let hasAnimated = false;
     
-    if (!logoImage || !logoLink) return;
-    
-    // Check if logo loads successfully
-    logoImage.addEventListener('error', function() {
-        // Hide the broken image
-        this.style.display = 'none';
-        
-        // Show text fallback
-        logoLink.innerHTML = '<span class="logo-text">KING MENTALITY</span>';
-        
-        // Apply text styling
-        const logoText = logoLink.querySelector('.logo-text');
-        if (logoText) {
-            logoText.style.fontFamily = 'var(--font-royal)';
-            logoText.style.fontSize = '1.5rem';
-            logoText.style.fontWeight = 'var(--weight-bold)';
-            logoText.style.color = 'var(--glowing-gold)';
-            logoText.style.textShadow = 'var(--glow-gold)';
-        }
+    // Create intersection observer for counter animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAnimated) {
+                animateCounters();
+                hasAnimated = true;
+            }
+        });
+    }, {
+        threshold: 0.5
     });
     
-    // Add loading state
-    logoImage.addEventListener('load', function() {
-        this.style.opacity = '1';
+    // Observe the stats section
+    const statsSection = document.querySelector('.crisis-stats');
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+}
+
+function animateCounters() {
+    const counters = [
+        { element: document.querySelector('.stat-number'), target: 3.5, suffix: 'x' },
+        { element: document.querySelectorAll('.stat-number')[1], target: 1, suffix: ' in 8' },
+        { element: document.querySelectorAll('.stat-number')[2], target: 1, suffix: ' in 5' }
+    ];
+    
+    counters.forEach(counter => {
+        if (!counter.element) return;
+        
+        // Special handling for the stat numbers since they have specific text
+        const originalText = counter.element.textContent;
+        
+        // Add a subtle animation effect
+        counter.element.style.animation = 'statGlow 2s ease-in-out';
+        
+        setTimeout(() => {
+            counter.element.style.animation = 'none';
+        }, 2000);
     });
 }
 
@@ -288,18 +300,6 @@ function setupButtonEffects() {
         button.addEventListener('mouseenter', function() {
             this.style.transition = 'all 0.3s ease';
         });
-        
-        // Add pulse effect for primary button
-        if (button.classList.contains('btn-primary')) {
-            setInterval(() => {
-                if (!button.matches(':hover')) {
-                    button.style.animation = 'pulse-gold 2s ease-in-out';
-                    setTimeout(() => {
-                        button.style.animation = 'none';
-                    }, 2000);
-                }
-            }, 8000);
-        }
     });
 }
 
@@ -328,74 +328,6 @@ function createRippleEffect(button, event) {
     setTimeout(() => {
         ripple.remove();
     }, 600);
-}
-
-/* ===== CRISIS STATS ANIMATION ===== */
-
-function setupCrisisStatsAnimation() {
-    const statsSection = document.querySelector('.crisis-stats');
-    const statNumbers = document.querySelectorAll('.stat-item.urgent .stat-number');
-    let hasAnimated = false;
-    
-    // Create intersection observer for stats animation
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !hasAnimated) {
-                animateCrisisStats();
-                hasAnimated = true;
-            }
-        });
-    }, {
-        threshold: 0.5
-    });
-    
-    // Observe the stats section
-    if (statsSection) {
-        observer.observe(statsSection);
-    }
-}
-
-function animateCrisisStats() {
-    const statItems = document.querySelectorAll('.stat-item.urgent');
-    
-    statItems.forEach((item, index) => {
-        setTimeout(() => {
-            // Add urgent flash effect
-            item.style.animation = 'urgentFlash 0.5s ease-in-out';
-            
-            // Add number glow effect
-            const number = item.querySelector('.stat-number');
-            if (number) {
-                number.style.animation = 'redGlow 1s ease-in-out';
-            }
-        }, index * 200);
-    });
-}
-
-/* ===== QUOTE ANIMATIONS ===== */
-
-function setupQuoteAnimations() {
-    const troyQuote = document.querySelector('.troy-quote');
-    const buddhaQuote = document.querySelector('.buddha-quote');
-    
-    // Add typing effect to Troy quote
-    if (troyQuote) {
-        setTimeout(() => {
-            troyQuote.style.animation = 'typewriter 2s steps(40) forwards';
-        }, 1500);
-    }
-    
-    // Add floating effect to Buddha quote
-    if (buddhaQuote) {
-        buddhaQuote.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px)';
-            this.style.transition = 'transform 0.3s ease';
-        });
-        
-        buddhaQuote.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    }
 }
 
 /* ===== UTILITY FUNCTIONS ===== */
@@ -438,23 +370,9 @@ function isInViewport(element) {
     );
 }
 
-// Add visual feedback for crisis stats
-function addUrgentFeedback() {
-    const crisisSection = document.querySelector('.crisis-stats');
-    if (crisisSection) {
-        // Add pulsing border effect
-        setInterval(() => {
-            crisisSection.style.borderColor = 'var(--blood-red)';
-            setTimeout(() => {
-                crisisSection.style.borderColor = 'var(--deep-red)';
-            }, 1000);
-        }, 3000);
-    }
-}
-
 /* ===== CSS ANIMATIONS (added via JavaScript) ===== */
 
-// Add additional animation keyframes
+// Add ripple animation keyframes
 const style = document.createElement('style');
 style.textContent = `
     @keyframes ripple {
@@ -464,16 +382,7 @@ style.textContent = `
         }
     }
     
-    @keyframes urgentFlash {
-        0%, 100% { 
-            background: rgba(139, 0, 0, 0.2); 
-        }
-        50% { 
-            background: rgba(139, 0, 0, 0.4); 
-        }
-    }
-    
-    @keyframes redGlow {
+    @keyframes statGlow {
         0%, 100% { 
             text-shadow: 0 0 10px rgba(139, 0, 0, 0.5); 
         }
@@ -481,56 +390,8 @@ style.textContent = `
             text-shadow: 0 0 20px rgba(220, 20, 60, 0.8); 
         }
     }
-    
-    @keyframes pulse-gold {
-        0%, 100% { 
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); 
-        }
-        50% { 
-            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6); 
-        }
-    }
-    
-    @keyframes typewriter {
-        from { 
-            border-right: 2px solid var(--deep-red); 
-        }
-        to { 
-            border-right: 2px solid transparent; 
-        }
-    }
 `;
 document.head.appendChild(style);
-
-/* ===== ADVANCED INTERACTIONS ===== */
-
-// Add Easter egg - Konami code for special effect
-let konamiCode = [];
-const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
-
-document.addEventListener('keydown', function(e) {
-    konamiCode.push(e.code);
-    if (konamiCode.length > konamiSequence.length) {
-        konamiCode.shift();
-    }
-    
-    if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
-        triggerKingMode();
-    }
-});
-
-function triggerKingMode() {
-    const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) {
-        heroTitle.style.animation = 'kingPulse 2s ease-in-out';
-        heroTitle.style.textShadow = '0 0 30px var(--glowing-gold)';
-        
-        // Add crown emoji
-        setTimeout(() => {
-            heroTitle.innerHTML += ' 👑';
-        }, 1000);
-    }
-}
 
 /* ===== ERROR HANDLING ===== */
 
@@ -540,10 +401,5 @@ window.addEventListener('error', function(e) {
     // Fallback functionality can be added here
 });
 
-// Initialize urgent feedback
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(addUrgentFeedback, 3000);
-});
-
 // Console log for successful initialization
-console.log('👑 King Mentality Hero Section Initialized Successfully - All Systems Ready for Kingdom Building!');
+console.log('🏰 King Mentality Hero Section Initialized Successfully');
